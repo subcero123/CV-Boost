@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" type="text/css" href="css/login-styles.css">
+</head>
+<body>
+    <div id="login-box">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+            <input type="text" placeholder="Nombre de Usuario" required id="username">
+            <input type="password" placeholder="Contraseña" required id="password">
+            <input type="submit" value="Aceptar">
+        </form>
+        <div class="create-account-button">
+            <a href="register.html" class="create-account">Crear cuenta</a>
+        </div>
+        <div class="forgot-password">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Evita el envío por defecto del formulario.
+
+            
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+          
+            if (username && password) {
+                
+                window.location.href = "home.html";
+            } else {
+                alert("Por favor, complete todos los campos.");
+            }
+        });
+    </script>
+</body>
+</html>

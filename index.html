@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACKATHON 2023</title>
+    <link rel="stylesheet" type="text/css" href="css/index-styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img src="images/buap_letras.png" alt="Logo">
+        </div>
+        <div class="navbar-right">
+            <a class="navbar-link registro-button" href="login.html">Iniciar sesión</a>
+            <a class="navbar-link" href="#">Convenios</a>
+            <a class="navbar-link" href="#">Contacto</a>
+
+         
+        </div>
+    </div>
+    <div style="height: calc(100vh - 60px); padding-bottom: 60px;">
+      
+        <div class="cuadro-texto" style="width: 350px; font-size: 20px; height: 400px; top: 60px; text-align: justify;"> 
+            <div class="titulo" style="font-size: 36px;">Vinculación</div> 
+            <div class="texto" style="font-size: 21px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla porta lacus, a tempus libero efficitur eget. Nullam ultrices, quam eu facilisis pellentesque, velit elit lacinia lorem, non convallis nunc purus at justo. Vestibulum ut massa nec eros fermentum vehicula. Sed suscipit augue at libero.</div>
+            <a class="boton" href="register.html">Registra tu CV</a>
+        </div>
+      
+        <img class="imagen-pop" src="images/reclutador.png" alt="Imagen Grande">
+    </div>
+
+    <div class="footer">
+        <p>© 2023 HACKATHON</p>
+        <div class="social-links">
+            <a class="social-link" href="#">Facebook</a>
+            <a class="social-link" href="#">Instagram</a>
+            <a class="social-link" href="#">YouTube</a>
+        </div>
+        <p class="privacidad-text">Avisos de Privacidad: Fecha de última actualización: 25 de noviembre del 2023 <br>
+            Este Aviso de Privacidad describe cómo nosotros recopilamos, utilizamos y compartimos la información personal de los usuarios que visitan nuestro sitio web.
+        </p>
+    </div>
+
+    <script>
+      
+        setTimeout(function() {
+            document.querySelector(".cuadro-texto").style.opacity = 1;
+            document.querySelector(".imagen-pop").style.opacity = 1;
+        }, 1000);
+    </script>
+    <script>
+       
+        function redirigirCorreo() {
+            var correoElectronico = "correo@example.com"; 
+            var asunto = "Asunto del Correo"; 
+            
+        
+            var enlaceCorreo = "mailto:" + correoElectronico + "?subject=" + asunto;
+            
+          
+            window.location.href = enlaceCorreo;
+        }
+    </script>
+</body>
+</html>
