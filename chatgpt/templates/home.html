@@ -54,15 +54,8 @@
                         <button id="upload-button">Subir Archivo</button>
                         <input type="file" id="file-input" accept=".pdf, .doc, .docx">
                         <button id="confirm-button" style="display: none;">Confirmar</button>
-                        <div id="resultado">
-                            <p style="font-weight: bold;">Mejoras realizadas en esta sección:</p>
-                            <ul>
-                                <p>Reorganización de la información para que sea más clara y concisa.</p>
-                                <p>Destacar las contribuciones y logros específicos en cada proyecto.</p>
-                                <p>Utilización de terminología relevante y palabras clave para pasar el filtro ATS.</p>
-                                <p>Enumeración clara de las tecnologías utilizadas en</p>
-                            </ul>
-                        </div>                        
+                        <div id="resultado"></div>
+                    </div>
                 </div>
                 <div class="bottom">
                     <div class="box">
@@ -76,14 +69,16 @@
                     </div>
                 </div>
 
-    <div id="myModalInterview" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeInterviewModal">&times;</span>
-            <p class="modal-text">Por favor, graba tu voz por 5 segundos para iniciar prueba.</p>
-            <button class="modal-button" id="interview-accept-button"></button>
-            <button class="record-voice-button" id="record-voice-button">Grabar voz</button>
-        </div>
-    </div>
+                <div id="myModalInterview" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeInterviewModal">&times;</span>
+                        <p class="modal-text">Por favor, graba tu voz por 15 segundos para iniciar prueba.</p>
+                        <img src="{{ url_for('static', filename='media/images/graba.gif') }}" alt="Tu imagen" class="modal-image">
+                        <button class="modal-button" id="interview-accept-button"></button>
+                        <button class="record-voice-button" id="record-voice-button">Grabar voz</button>
+                        <p class="hidden-text" id="success-text">¡Grabación exitosa! Tus resultados: Cuenta con habilidades y competencias necesarias en inteligencia artificial.</p>
+                    </div>
+                </div>
 
     <script>
         const startInterviewButton = document.getElementById("start-interview-button");
@@ -122,5 +117,30 @@
            
         });
     </script>
+    <script>
+             const recordButton = document.getElementById("record-voice-button");
+const successText = document.getElementById("success-text");
+let countdown = 15; // 15 segundos
+
+recordButton.addEventListener("mousedown", function() {
+    this.innerText = "Grabando";
+    this.classList.add("recording");
+
+    // Iniciar la cuenta regresiva
+    const countdownInterval = setInterval(function() {
+        countdown--;
+        if (countdown === 0) {
+            clearInterval(countdownInterval);
+            recordButton.style.display = "none"; // Ocultar el botón
+            successText.style.display = "block"; // Mostrar el texto de éxito
+        }
+    }, 1000);
+});
+
+recordButton.addEventListener("mouseup", function() {
+    this.innerText = "Grabar voz";
+    this.classList.remove("recording");
+});
+                </script>
 </body>
 </html>
