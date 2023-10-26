@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
-    <script defer src="{{ url_for('static',filename='scripts/script.js') }}"> </script>
     <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="chatgpt/static/css/home.html">
 </head>
 <body>
     <div class="nav">
@@ -14,7 +13,7 @@
             <p><a href="#">BUAP</a></p>
         </div>
         <div class="right-links">
-            <a href="{{ url_for('index') }}"><button class="btn">Cerrar Sesión</button></a>
+            <a href="index.html"><button class="btn">Cerrar Sesión</button></a>
         </div>
     </div>
     <main>
@@ -25,6 +24,9 @@
                 </div>
                 <div class="box">
                     <p>La cuenta actual es:  <b>invitado@gmail.com</b>.</p>
+                </div>
+                <div class="box">
+                    <p>Nombre de empresa:  <b>Mi empresa IT</b>.</p>
                 </div>
             </div>
             <div id="myModal" class="modal">
@@ -47,46 +49,69 @@
                     <p>Por favor, <b>ingresa tu currículum para iniciar la evaluación</b>.</p>
                     <div class="upload-section">
                         <div class="upload-box">
-                            <img src="{{ url_for('static', filename='media/images/subir.gif') }}" alt="Logo" class="upload-image">
+                            <img src="images/subir.gif" alt="Logo" class="upload-image">
                         <button id="upload-button">Subir Archivo</button>
                         <input type="file" id="file-input" accept=".pdf, .doc, .docx">
                         <button id="confirm-button" style="display: none;">Confirmar</button>
                     </div>
-                    <div id="resultado"></div>
-                    <script>
-                        const uploadButton = document.getElementById("upload-button");
-                        const modal = document.getElementById("myModal");
-                        const closeModal = document.getElementById("closeModal");
-                        const acceptButton = document.getElementById("acceptButton");
-                        const fileToUpload = document.getElementById("fileToUpload");
-                
-                        uploadButton.addEventListener("click", () => {
-                            modal.style.display = "block"; 
-                        });
-                
-                        closeModal.addEventListener("click", () => {
-                            modal.style.display = "none"; 
-                        });
-                
-                        acceptButton.addEventListener("click", () => {
-                            
-                            fileToUpload.click();
-                        });
-                
-                        fileToUpload.addEventListener("change", () => {
-                           
-                        });
-                    </script>
                 </div>
-            </div>
-        </div>
-    </main>
-    <div id="myModal" class="modal">
+                <div class="bottom">
+                    <div class="box">
+                        <p>Por favor, <b>Graba tu voz por 5 min. para evaluar tus habilidades de comunicación</b>.</p>
+                        <div class="upload-section">
+                            <div class="upload-box">
+                                <img src="images/microfono.gif" alt="Logo" class="upload-image">
+                                <button class="start-interview-button" id="start-interview-button">Iniciar entrevista</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <div id="myModalInterview" class="modal">
         <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <p>Texto de ejemplo en el modal.</p>
-            <button id="acceptButton">Aceptar</button>
+            <span class="close" id="closeInterviewModal">&times;</span>
+            <p class="modal-text">Por favor, graba tu voz por 5 segundos para iniciar prueba.</p>
+            <button class="modal-button" id="interview-accept-button"></button>
+            <button class="record-voice-button" id="record-voice-button">Grabar voz</button>
         </div>
     </div>
+
+    <script>
+        const startInterviewButton = document.getElementById("start-interview-button");
+        const interviewModal = document.getElementById("myModalInterview");
+        const closeInterviewModal = document.getElementById("closeInterviewModal");
+        
+        startInterviewButton.addEventListener("click", () => {
+            interviewModal.style.display = "block";
+        });
+        
+        closeInterviewModal.addEventListener("click", () => {
+            interviewModal.style.display = "none";
+        });
+    </script>
+    <script>
+        const uploadButton = document.getElementById("upload-button");
+        const modal = document.getElementById("myModal");
+        const closeModal = document.getElementById("closeModal");
+        const acceptButton = document.getElementById("acceptButton");
+        const fileToUpload = document.getElementById("fileToUpload");
+
+        uploadButton.addEventListener("click", () => {
+            modal.style.display = "block"; 
+        });
+
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none"; 
+        });
+
+        acceptButton.addEventListener("click", () => {
+            
+            fileToUpload.click();
+        });
+
+        fileToUpload.addEventListener("change", () => {
+           
+        });
+    </script>
 </body>
 </html>
