@@ -11,7 +11,7 @@ from langchain import PromptTemplate
 app = Flask(__name__)
 
 # Clave de la API de OpenAI
-openai.api_key = ""
+openai.api_key = "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"
 
 def obtener_texto_cv(path):
     # Desglose del CV
@@ -90,12 +90,12 @@ def obtener_sugerencias(texto):
 # Función para obtener sugerencias de mejora para secciones específicas del CV
 def obtener_sugerencias_para_secciones(cv):
     sugerencias_por_seccion = {}
-    curriculum  = obtener_texto_cv(cv)
-    
-    for seccion, contenido in curriculum.items():
+    print(cv)
+    for seccion, contenido in cv.items():
+        print(seccion)
         if seccion in ["Educación", "Experiencia Laboral en Tecnología", "Habilidades Técnicas",
                     "Proyectos Personales o de Grupo", "Hackathons y Competencias Técnicas",
-                    "Proyectos de Código Abierto"] and contenido.strip():
+                    "Proyectos de Código Abierto"]:
             sugerencias = obtener_sugerencias(contenido)
             sugerencias_por_seccion[seccion] = sugerencias
     
@@ -121,25 +121,104 @@ def home():
 
 @app.route('/obtener_sugerencias', methods=['POST'])
 def obtener_sugerencias_endpoint():
-    try:
-        # Verifica si se ha enviado un archivo llamado 'cv_file'
-        if 'cv_file' in request.files:
-            cv_file = request.files['cv_file']
-            cv = obtener_texto_cv(cv_file)
-            response_data = obtener_sugerencias_para_secciones(cv)
+    # try:
+    # Verifica si se ha enviado un archivo llamado 'cv_file'
+    """
+    if 'cv_file' in request.files:
+        cv_file = request.files['cv_file']
+        cv = obtener_texto_cv(cv_file)
+        response_data = obtener_sugerencias_para_secciones(cv)
 
-            # Puedes acceder a los atributos del archivo, por ejemplo, su nombre y contenido
-            cv_filename = cv_file.filename
-            cv_content = cv_file.read()
+        # Puedes acceder a los atributos del archivo, por ejemplo, su nombre y contenido
+        cv_filename = cv_file.filename
+        cv_content = cv_file.read()
 
-            # Aquí puedes realizar las operaciones necesarias con el contenido del archivo
-
-            return jsonify(response_data)
-        else:
-            return jsonify({"error": "No se envió ningún archivo con el nombre 'cv_file' en la solicitud."})
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
+        # Aquí puedes realizar las operaciones necesarias con el contenido del archivo
+    """
+    # Datos de ejemplo del CV
+    cv = {
+        "Educación": {
+            "Título actual o más reciente": "Computer systems engineering",
+            "Institución": "Benemérita Universidad Autónoma de Puebla",
+            "Fecha de inicio": "August 2018",
+            "Fecha de finalización": "January 2024"
+        },
+        "Experiencia Laboral en Tecnología": [
+            {
+                "Puesto": "Internship at EMFUTECH in Osaka, Japan",
+                "Fechas": "April 2023 - July 2023",
+                "Responsabilidades": [
+                    "Implementation of teleoperation of vehicles at EMFUTECH",
+                    "Designed a full WebApplication using tools like Flask, Python, React",
+                    "Implemented steering mechanisms, enhancing control precision and maneuverability of an RC vehicle",
+                    "Designed and implemented RTSP solutions for video surveillance systems"
+                ],
+                "Experiencia en Tecnologías": [
+                    "Java: 4 years",
+                    "GIT",
+                    "Linux Operative Systems",
+                    "C#: 1 year",
+                    "MySQL: 4 years",
+                    "PYTHON Machine Learning and Data Scientist",
+                    "JavaScript/Typescript: 4 years",
+                    "PHP: 2 years",
+                    "HTML/CSS: 4 years"
+                ]
+            }
+        ],
+        "Habilidades Técnicas": [
+            "Java",
+            "GIT",
+            "Linux Operative Systems",
+            "C#",
+            "MySQL",
+            "PYTHON Machine Learning and Data Scientist",
+            "JavaScript/Typescript",
+            "PHP",
+            "HTML/CSS"
+        ],
+        "Proyectos Personales o de Grupo": [
+            {
+                "Proyecto": "Implementation of teleoperation of vehicles at EMFUTECH (June 2023)",
+                "Contribución": "Designed a full WebApplication using tools like Flask, Python, React",
+                "Tecnologías utilizadas": "Flask, Python, React"
+            },
+            {
+                "Proyecto": "Real-Time Vehicle Tracking Application (December 2020)",
+                "Contribución": "Integrated Google Maps API to display accurate and interactive maps, allowing users to visualize vehicle locations and routes in real time."
+            }
+        ],
+        "Hackathons y Competencias Técnicas": [
+            "2018 Participation at the national robotics contest WER MEXICO 2018",
+            "2023 Best Project for the Industry Award at EMFUTECH 2023"
+        ],
+        "Certificaciones Técnicas": [
+            "English: TOEFL IBT 95 Points",
+            "Japanese: JLPT N4 Level certification",
+            "Spanish: Native"
+        ],
+        "Idiomas de Programación": [
+            "Java: 4 years",
+            "C#: 1 year",
+            "MySQL: 4 years",
+            "PYTHON Machine Learning and Data Scientist",
+            "JavaScript/Typescript: 4 years",
+            "PHP: 2 years",
+            "HTML/CSS: 4 years"
+        ],
+        "Proyectos de Código Abierto": "No se menciona la participación en proyectos de código abierto.",
+        "Habilidades Comunicativas y de Trabajo en Equipo": "No se mencionan habilidades comunicativas y de trabajo en equipo.",
+        "Intereses y Publicaciones Técnicas": "No se mencionan intereses y publicaciones técnicas.",
+        "Redes Sociales y Perfiles en Línea": {
+            "LinkedIn": "No se menciona",
+            "GitHub": "https://github.com/subcero123"
+        }
+    }
+    sugerencias_por_seccion = obtener_sugerencias_para_secciones(cv)
+    response_data = sugerencias_por_seccion
+    print(sugerencias_por_seccion)
+    return jsonify(response_data)
+    # return jsonify({"error": "No se envió ningún archivo con el nombre 'cv_file' en la solicitud."})
 if __name__ == "__main__":
     app.run(debug=True)
+
