@@ -1,6 +1,5 @@
-    const uploadButton = document.getElementById("upload-button");
-    const fileInput = document.getElementById("file-input");
-    const confirmButton = document.getElementById("confirm-button");
+const fileInput = document.getElementById("file-input");
+const confirmButton = document.getElementById("confirm-button");
 
     // Agrega un escuchador de eventos al botón de subir archivo
     uploadButton.addEventListener("click", () => {
