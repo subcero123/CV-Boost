@@ -1,10 +1,9 @@
-#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
-#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
+
 import openai
 import os
 
 # Clave de la API de OpenAI
-openai.api_key = "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"
+openai.api_key = ""
 
 
 # Función para obtener sugerencias de mejoras en una sección del CV
