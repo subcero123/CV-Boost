@@ -13,7 +13,7 @@
             <p><a href="#">BUAP</a></p>
         </div>
         <div class="right-links">
-            <a href="href="{{ url_for('index') }}""><button class="btn">Cerrar Sesión</button></a>
+            <a href="href="{{ url_for('index') }}"><button class="btn">Cerrar Sesión</button></a>
         </div>
     </div>
     <main>
@@ -46,7 +46,7 @@
                     <p>Por favor, <b>ingresa tu currículum para iniciar la evaluación</b>.</p>
                     <div class="upload-section">
                         <div class="upload-box">
-                            <img src="images/subir.gif" alt="Logo" class="upload-image">
+                            <img src="{{ url_for('static', filename='media/images/subir.gif') }}" alt="Logo" class="upload-image">
                         <button id="upload-button">Subir Archivo</button>
                         <input type="file" id="file-input" accept=".pdf, .doc, .docx">
                         <button id="confirm-button" style="display: none;">Confirmar</button>
