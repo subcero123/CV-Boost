@@ -1,4 +1,4 @@
 chatgpt/.venv/
 chatgpt/venv/
 chatgpt/config.py
-chatgpt/__pycache__/
+chatgpt/__pycache__/ 
