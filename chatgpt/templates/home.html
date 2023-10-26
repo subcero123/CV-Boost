@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
-    <script defer src="{{ url_for('static',filename='scripts/script.js') }}"> </script>
+    <link rel="stylesheet" href="css/home.css">
     <title>Home</title>
 </head>
 <body>
@@ -14,7 +13,7 @@
             <p><a href="#">BUAP</a></p>
         </div>
         <div class="right-links">
-            <a href="{{ url_for('index') }}"><button class="btn">Cerrar Sesión</button></a>
+            <a href="index.html"><button class="btn">Cerrar Sesión</button></a>
         </div>
     </div>
     <main>
@@ -25,6 +24,9 @@
                 </div>
                 <div class="box">
                     <p>La cuenta actual es:  <b>invitado@gmail.com</b>.</p>
+                </div>
+                <div class="box">
+                    <p>Nombre de empresa:  <b>Mi empresa IT</b>.</p>
                 </div>
             </div>
             <div id="myModal" class="modal">
@@ -47,11 +49,21 @@
                     <p>Por favor, <b>ingresa tu currículum para iniciar la evaluación</b>.</p>
                     <div class="upload-section">
                         <div class="upload-box">
-                            <img src="{{ url_for('static', filename='/images/subir.gif') }}" alt="Logo" class="upload-image">
+                            <img src="images/subir.gif" alt="Logo" class="upload-image">
                         <button id="upload-button">Subir Archivo</button>
                         <input type="file" id="file-input" accept=".pdf, .doc, .docx">
                         <button id="confirm-button" style="display: none;">Confirmar</button>
                     </div>
+                    <div class="bottom">
+                        <div class="box">
+                            <p>Por favor, <b>Graba tu voz por 5 min. para evaluar tus habilidades de comunicación</b>.</p>
+                            <div class="upload-section">
+                                <div class="upload-box">
+                                    <img src="images/microfono.gif" alt="Logo" class="upload-image">
+                                <button id="upload-button">Iniciar entrevista</button>
+                                <input type="file" id="file-input" accept=".pdf, .doc, .docx">
+                                <button id="confirm-button" style="display: none;">Confirmar</button>
+                            </div>
                     <script>
                         const uploadButton = document.getElementById("upload-button");
                         const modal = document.getElementById("myModal");
