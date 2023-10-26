@@ -270,5 +270,28 @@ main{
 }
 
 .record-voice-button:hover {
-    background-color: #218838; /* Color de fondo al pasar el mouse (verde más oscuro) */
+    background-color: #da0000; /* Color de fondo al pasar el mouse (verde más oscuro) */
+}
+.modal-image {
+    max-width: 100%; /* Permite que la imagen se ajuste automáticamente al ancho del contenedor */
+    height: auto;    /* Mantiene la proporción de aspecto original de la imagen */
+    display: block;  /* Elimina el espacio adicional alrededor de la imagen */
+    margin: 0 auto;  /* Centra horizontalmente la imagen en el contenedor */
+}
+.record-voice-button {
+    background-color: blue; /* Color de fondo predeterminado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.recording {
+    background-color: red; /* Color de fondo cuando se está grabando */
+}
+.hidden-text {
+    display: none;
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
 }
