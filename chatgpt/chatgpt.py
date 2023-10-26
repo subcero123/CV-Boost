@@ -5,6 +5,7 @@ import config
 import os
 from langchain.chat_models import ChatOpenAI
 from langchain import PromptTemplate
+import json
 
 
 app = Flask(__name__)
@@ -129,10 +130,19 @@ def obtener_sugerencias_endpoint():
             "Hackathons y Competencias Técnicas": "Gané el primer lugar en el Hackathon ABC en 2022.",
             "Proyectos de Código Abierto": "",
         }
-        sugerencias_por_seccion = obtener_sugerencias_para_secciones({"Educación": cv})
-        return render_template('index.html', cv_sugerencias=sugerencias_por_seccion)
-    except Exception as e:
-        return render_template('index.html', error=str(e))
+        sugerencias_por_seccion = {
+            "Educación": ["Estudiante de Ciencias de la Computación en la Universidad XYZ."],
+            "Experiencia Laboral en Tecnología": ["Agregar detalles relevantes sobre tus experiencias laborales en tecnología"],
+            "Habilidades Técnicas": ["Competencia en Python, Java, Linux y bases de datos SQL.", "Experiencia en el uso de herramientas de desarrollo como Git."],
+            "Proyectos Personales o de Grupo": ["Agregar detalles sobre proyectos relevantes"],
+            "Hackathons y Competencias Técnicas": ["Primer lugar en el Hackathon ABC en 2022."],
+            "Proyectos de Código Abierto": ["Agregar detalles sobre contribuciones o proyectos de código abierto"]
+        }
+        # Convierte a JSON
+        sugerencias_por_seccion_json = json.dumps(sugerencias_por_seccion, indent=4)
 
+        return sugerencias_por_seccion
+    except Exception as e:
+        return e
 if __name__ == '__main__':
     app.run(debug=True)
