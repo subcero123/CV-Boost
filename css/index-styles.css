@@ -4,7 +4,7 @@ html, body {
     padding: 0;
     font-family: Arial, sans-serif;
     background: #1a1a1a;
-    background: linear-gradient(45deg, #0bd6ff, #008ae6, #aa0bff);
+    background: linear-gradient(45deg, #030544, #5252f2, #00a9cb);
     background-size: cover;
     animation: color 12s ease-in-out infinite;
     overflow: hidden;
