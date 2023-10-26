@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
+    <title>Home</title>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <p><a href="#">BUAP</a></p>
+        </div>
+        <div class="right-links">
+            <a href="href="{{ url_for('index') }}""><button class="btn">Cerrar Sesión</button></a>
+        </div>
+    </div>
+    <main>
+        <div class="main-box top">
+            <div class="top">
+                <div class="box">
+                    <p>Hola <b>Invitado</b>, Bienvenido</p>
+                </div>
+                <div class="box">
+                    <p>La cuenta actual es:  <b>invitado@gmail.com</b>.</p>
+                </div>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <p><b>Verifica lo siguiente antes de subir tu CV:</b></p><br>
+                        <b>1. Usa palabras clave relevantes.</b>
+                        Investiga la oferta de trabajo <br>
+                        y destaca las palabras clave que aparecen en ella. <br>
+                        <b>2. Personaliza tu currículum:</b> No envíes el <br>
+                        mismo currículum a todas las ofertas de trabajo. <br>
+                        <b>3. Formato simple y legible.</b> Utiliza un formato limpio</p>
+                    <button id="acceptButton">Aceptar</button>
+                    <input type="file" id="fileToUpload" style="display: none;"> 
+                </div>
+            </div>
+        
+            <div class="bottom">
+                <div class="box">
+                    <p>Por favor, <b>ingresa tu currículum para iniciar la evaluación</b>.</p>
+                    <div class="upload-section">
+                        <div class="upload-box">
+                            <img src="images/subir.gif" alt="Logo" class="upload-image">
+                        <button id="upload-button">Subir Archivo</button>
+                        <input type="file" id="file-input" accept=".pdf, .doc, .docx">
+                        <button id="confirm-button" style="display: none;">Confirmar</button>
+                    </div>
+                    <script>
+                        const uploadButton = document.getElementById("upload-button");
+                        const modal = document.getElementById("myModal");
+                        const closeModal = document.getElementById("closeModal");
+                        const acceptButton = document.getElementById("acceptButton");
+                        const fileToUpload = document.getElementById("fileToUpload");
+                
+                        uploadButton.addEventListener("click", () => {
+                            modal.style.display = "block"; 
+                        });
+                
+                        closeModal.addEventListener("click", () => {
+                            modal.style.display = "none"; 
+                        });
+                
+                        acceptButton.addEventListener("click", () => {
+                            
+                            fileToUpload.click();
+                        });
+                
+                        fileToUpload.addEventListener("change", () => {
+                           
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <p>Texto de ejemplo en el modal.</p>
+            <button id="acceptButton">Aceptar</button>
+        </div>
+    </div>
+</body>
+</html>

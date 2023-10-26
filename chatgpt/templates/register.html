@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/register.css') }}">
+</head>
+<body>
+    <div id="create-account-box">
+        <h2>Crear Cuenta</h2>
+        <form id="register-form">
+            <input type="text" placeholder="Nombre de usuario" required id="username">
+            <input type="email" placeholder="Correo Electrónico" required id="email">
+            <input type="password" placeholder="Contraseña" required id="password">
+            <input type="submit" value="Registrarse">
+        </form>
+        <div id="back-to-login">
+            <a href="{{ url_for('login') }}">Volver al Inicio de Sesión</a>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("register-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            if (username && email && password) {
+                alert("Registro exitoso");
+
+                window.location.href = "login.html";
+            } else {
+                alert("Por favor, complete todos los campos.");
+            }
+        });
+    </script>
+</body>
+</html>
