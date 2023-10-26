@@ -24,7 +24,7 @@
             .then(data => {
                 // Muestra la respuesta en la página
                 const suggestionsElement = document.createElement("div");
-                suggestionsElement.innerHTML = `<p><strong>Sugerencias:</strong></p><p>${data['Educación']}</p>`;
+                suggestionsElement.innerHTML = `<p><strong>Sugerencias:</strong></p><p>${data}</p>`;
                 document.body.appendChild(suggestionsElement);
             })
             .catch(error => {
