@@ -1,10 +1,11 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import openai
 from PyPDF2 import PdfReader
 import config
 import os
 from langchain.chat_models import ChatOpenAI
 from langchain import PromptTemplate
+
 
 
 app = Flask(__name__)
@@ -121,23 +122,24 @@ def home():
 @app.route('/obtener_sugerencias', methods=['POST'])
 def obtener_sugerencias_endpoint():
     try:
-        # Datos de ejemplo del CV
-        # Checo la información post de la petición
-        cv = request.form.get('cv_file')
-        # cv = {
-        #     "Educación": "Soy estudiante de Ciencias de la Computación en la Universidad XYZ.",
-        #     "Experiencia Laboral en Tecnología": "",
-        #     "Habilidades Técnicas": "Tengo experiencia en Python, Java, Linux, bases de datos SQL y herramientas de desarrollo como Git.",
-        #     "Proyectos Personales o de Grupo": "",
-        #     "Hackathons y Competencias Técnicas": "Gané el primer lugar en el Hackathon ABC en 2022.",
-        #     "Proyectos de Código Abierto": "",
-        # }
-        return cv;
+        # Verifica si se ha enviado un archivo llamado 'cv_file'
+        if 'cv_file' in request.files:
+            cv_file = request.files['cv_file']
+            cv = obtener_texto_cv(cv_file)
+            response_data = obtener_sugerencias_para_secciones(cv)
 
-        sugerencias_por_seccion = obtener_sugerencias_para_secciones({"Educación": cv})
-        return render_template('index.html', cv_sugerencias=sugerencias_por_seccion)
+            # Puedes acceder a los atributos del archivo, por ejemplo, su nombre y contenido
+            cv_filename = cv_file.filename
+            cv_content = cv_file.read()
+
+            # Aquí puedes realizar las operaciones necesarias con el contenido del archivo
+
+            return jsonify(response_data)
+        else:
+            return jsonify({"error": "No se envió ningún archivo con el nombre 'cv_file' en la solicitud."})
+
     except Exception as e:
-        return render_template('index.html', error=str(e))
+        return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
