@@ -12,7 +12,7 @@ fileInput.addEventListener("change", () => {
     //Verifica que se haya seleccionado un archivo
     if (fileInput.files.length > 0) {
     const file = fileInput.files[0];
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append("cv_file", file);
     console.log(file);
     //Realiza una solicitud POST al endpoint
