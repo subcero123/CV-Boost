@@ -1,0 +1,4 @@
+openai
+PyPDF2
+langchain
+flask

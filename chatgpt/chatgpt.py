@@ -1,10 +1,76 @@
 from flask import Flask, request, render_template
 import openai
+from PyPDF2 import PdfReader
+import config
+import os
+from langchain.chat_models import ChatOpenAI
+from langchain import PromptTemplate
+
 
 app = Flask(__name__)
 
 # Clave de la API de OpenAI
-openai.api_key = "TU_CLAVE_DE_API_DE_OPENAI"
+openai.api_key = ""
+
+def obtener_texto_cv(path):
+    # Desglose del CV
+
+    #Lectura del archivo pdf
+    #reader = PdfReader("curriculumVitaeSistemas.pdf")
+    reader = PdfReader(path)
+    number_of_pages = len(reader.pages)
+
+    # Inicializamos el texto acumulado como una cadena vacía
+    text = ""
+
+    for i in range(number_of_pages):
+        #Acumulamos las paginas
+        page = reader.pages[i]
+
+        # Extraemos el texto de la página y lo agregamos al texto acumulado
+        text += page.extract_text()
+
+
+    os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
+    print(os.environ['OPENAI_API_KEY'])
+
+
+    template = '''
+        Quiero que actues como un analista de datos experto en analizar curriculums sobre ``` {carrera} ```.
+        El curriculum es el siguiente:
+        ``` {curriculum} ```
+        Ordena y clasifica la siguiente información en base a los siguientes rubros:
+        Educación: Dado que eres estudiante o recién graduado, tu historial académico es fundamental. Enumera tu título actual o más reciente, la institución, las fechas de inicio y finalización, y cualquier distinción académica relevante.
+        Experiencia Laboral en Tecnología: Incluye cualquier pasantía, empleo a tiempo parcial o proyectos relacionados con la informática. Es importante especificar las tecnologías utilizadas y las responsabilidades asumidas.
+        Habilidades Técnicas: Destaca tus habilidades técnicas, como lenguajes de programación, sistemas operativos, bases de datos, herramientas de desarrollo y cualquier otra competencia relevante.
+        Proyectos Personales o de Grupo: Menciona proyectos en los que hayas trabajado, ya sea de forma independiente o en equipo. Describe tu contribución, las tecnologías utilizadas y los resultados logrados.
+        Hackathons y Competencias Técnicas: Si has participado en hackathons, competencias de programación o eventos similares, resalta tus logros y premios.
+        Certificaciones Técnicas: Enumera cualquier certificación relacionada con la informática que hayas obtenido.
+        Idiomas de Programación: Especifica los lenguajes de programación que dominas y tu nivel de experiencia en cada uno.
+        Proyectos de Código Abierto: Si has contribuido a proyectos de código abierto, menciona tu participación y las contribuciones realizadas.
+        Habilidades Comunicativas y de Trabajo en Equipo: En el campo de la tecnología, la capacidad para comunicar ideas técnicas y trabajar en equipo es valiosa. Destaca estas habilidades.
+        Intereses y Publicaciones Técnicas: Si tienes interés en áreas específicas de la computación o has publicado trabajos técnicos, inclúyelos.
+        Redes Sociales y Perfiles en Línea: Si tienes perfiles en LinkedIn, GitHub u otras plataformas relevantes, menciónalos para que los reclutadores puedan obtener más información sobre tu trabajo.
+        Estructura con el siguiente formato: "Titulo del Rubro": "Contenido desglosado en puntos"
+        Agrega comillas dobles a cada rubro y contenido.
+        No omitas información.
+        '''
+
+    #Generamos un template para el chat
+    prompt = PromptTemplate.from_template(template)
+
+    #print(prompt.format(carrera='ingenieros en computación', curriculum=text))
+
+    llms = ChatOpenAI( model='gpt-3.5-turbo', temperature=0.9, max_tokens=1000,)
+
+    from langchain.chains import LLMChain
+
+    chain = LLMChain(llm=llms, prompt=prompt, verbose=True)
+
+    result = chain.run(carrera='ingenieros en computación', curriculum=text)
+
+    #En result se encuentra el desglose del CV
+
 
 # Función para obtener sugerencias de mejoras en una sección del CV
 def obtener_sugerencias(texto):
@@ -12,7 +78,7 @@ def obtener_sugerencias(texto):
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-          messages=[
+        messages=[
         {"role": "user", "content": prompt}
         ],
         temperature=0.4,
@@ -26,8 +92,8 @@ def obtener_sugerencias_para_secciones(cv):
     
     for seccion, contenido in cv.items():
         if seccion in ["Educación", "Experiencia Laboral en Tecnología", "Habilidades Técnicas",
-                      "Proyectos Personales o de Grupo", "Hackathons y Competencias Técnicas",
-                      "Proyectos de Código Abierto"] and contenido.strip():
+                    "Proyectos Personales o de Grupo", "Hackathons y Competencias Técnicas",
+                    "Proyectos de Código Abierto"] and contenido.strip():
             sugerencias = obtener_sugerencias(contenido)
             sugerencias_por_seccion[seccion] = sugerencias
     
